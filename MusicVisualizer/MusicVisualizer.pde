@@ -20,25 +20,42 @@ float eRadius;
 
 void setup()
 {
-  size(200, 200, P3D);
+  size(1024, 576, P3D);
+  // fullScreen(P3D);
+
   minim = new Minim(this);
-  song = minim.loadFile("marcus_kellis_theme.mp3", 2048);
+  song = minim.loadFile("levitation.mp3");
+  song.cue(15000);
   song.play();
+
   // a beat detection object song SOUND_ENERGY mode with a sensitivity of 10 milliseconds
   beat = new BeatDetect();
+  beat.detectMode(BeatDetect.SOUND_ENERGY);
+  // beat.detectMode(BeatDetect.FREQ_ENERGY);
+  beat.setSensitivity(200);
   
   ellipseMode(RADIUS);
-  eRadius = 20;
+  eRadius = height/10;
 }
 
 void draw()
 {
   background(0);
+
   beat.detect(song.mix);
-  float a = map(eRadius, 20, 80, 60, 255);
-  fill(60, 255, 0, a);
-  if ( beat.isOnset() ) eRadius = 80;
+
+  float a = map(eRadius, height/10, height/2, 60, 255);
+  fill(16, 175, 253, a);
+
+  if (beat.isOnset()) {
+    eRadius = height/2;
+    println("Onset: " + song.position());
+  }
+
   ellipse(width/2, height/2, eRadius, eRadius);
+  
   eRadius *= 0.95;
-  if ( eRadius < 20 ) eRadius = 20;
+  if ( eRadius < height/10 ) {
+    eRadius = height/10;
+  }
 }
