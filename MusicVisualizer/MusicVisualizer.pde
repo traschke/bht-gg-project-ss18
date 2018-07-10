@@ -17,6 +17,7 @@ AudioPlayer song;
 BeatDetect beat;
 
 float eRadius;
+color eColor;
 
 void setup()
 {
@@ -36,6 +37,8 @@ void setup()
   
   ellipseMode(RADIUS);
   eRadius = height/10;
+  eColor = color(random(0, 255), random(0, 255), random(0, 255), 60);
+
 }
 
 void draw()
@@ -45,12 +48,16 @@ void draw()
   beat.detect(song.mix);
 
   float a = map(eRadius, height/10, height/2, 60, 255);
-  fill(16, 175, 253, a);
 
   if (beat.isOnset()) {
     eRadius = height/2;
     println("Onset: " + song.position());
+    eColor = color(random(0, 255), random(0, 255), random(0, 255), a);
+  } else {
+    eColor = color(red(eColor), green(eColor), blue(eColor), a);
   }
+
+  fill(eColor);
 
   ellipse(width/2, height/2, eRadius, eRadius);
   
