@@ -41,6 +41,5 @@ void draw()
     player.jump();
   }
 
-  player.updatePosition();
-  shape(player.getPlayerSprite());
+  player.draw();
 }

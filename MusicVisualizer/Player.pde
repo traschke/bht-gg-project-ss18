@@ -43,7 +43,7 @@ class Player {
     }
   }
 
-  public void updatePosition() {
+  public void draw() {
     int millisSinceJumpBegin = millis() - this.jumpMillisBegin;
 
     if (this.isGoingUp && millis() >= this.jumpMillisPeak) {
@@ -66,6 +66,7 @@ class Player {
 
     // * -1 because the zero point of the scene is in the upper left corner!
     translate(0, this.currentHeight * -1);
+    shape(this.playerSprite);
   }
 
   private void changeDirection() {
@@ -82,7 +83,6 @@ class Player {
     this.isGoingDown = false;
     this.currentHeight = 0.0;
     this.lastMillisSinceJumpBegin = 0;
-    // this.jump();
   }
 
   private boolean isJumping() {
