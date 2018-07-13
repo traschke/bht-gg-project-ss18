@@ -32,6 +32,7 @@ class Player {
     if (durationPercentage <= 1.0) {
       double sine = Math.sin(PI * durationPercentage);
       double currentJumpHeight = sine * (double)this.jumpHeight;
+      
       // * -1 because the zero point of the scene is in the upper left corner!
       this.playerSprite.resetMatrix();
       this.playerSprite.translate(0, Math.round(currentJumpHeight) * -1);

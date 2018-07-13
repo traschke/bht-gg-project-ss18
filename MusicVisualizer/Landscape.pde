@@ -5,19 +5,12 @@ class Landscape {
   private int duration;
 
   private PShape sun;
+  private int sunRiseHeight;
 
-  private PVector sunBezierA;
-  private PVector sunBezierB;
-  private PVector sunBezierC;
-
-  public Landscape(int duration, int sunRadian, PVector sunStartPos, int sunPostionMax) {
-    println("sunStartPos: "+sunStartPos);
-    println("sunPostionMax: "+sunPostionMax);
+  public Landscape(int duration, int sunRadian, PVector sunStartPos, int sunRiseHeight) {
     this.duration = duration;
 
-    this.sunBezierA = new PVector(0, sunPostionMax);
-    this.sunBezierB = new PVector(width/2, 0);
-    this.sunBezierC = new PVector(width, sunPostionMax);
+    this.sunRiseHeight = sunRiseHeight;
 
     this.sun = createShape(ELLIPSE, sunStartPos.x, sunStartPos.y, sunRadian, sunRadian);
     this.sun.setFill(color(255, 255, 0));
@@ -30,14 +23,13 @@ class Landscape {
 
   private void drawSun(int durationProgress) {
     float durationProgressPercent = this.getDurationProgressPercentage(durationProgress);
-    PVector a = new PVector(this.sunBezierA.x, this.sunBezierA.y);
-    PVector b = new PVector(this.sunBezierB.x, this.sunBezierB.y);
-    PVector c = new PVector(this.sunBezierC.x, this.sunBezierC.y);
-
-    PVector result = this.bezier(durationProgressPercent, a, b, c);
+    double sine = Math.sin(PI * durationProgressPercent);
+    float currentY = (float)sine * (float)this.sunRiseHeight;
+    float currentX = (float)width * durationProgressPercent;
 
     this.sun.resetMatrix();
-    this.sun.translate(result.x, result.y);
+    // * -1 because the zero point of the scene is in the upper left corner!
+    this.sun.translate(currentX, currentY * -1);
     shape(this.sun);
   }
 
@@ -49,12 +41,6 @@ class Landscape {
     timebar.setStrokeWeight(0);
 
     shape(timebar);
-  }
-
-  private PVector bezier(float t, PVector a, PVector b, PVector c) {
-    PVector ab = a.lerp(b, t);
-    PVector bc = b.lerp(c, t);
-    return ab.lerp(bc, t);
   }
 
   private float getDurationProgressPercentage(int durationProgress) {
