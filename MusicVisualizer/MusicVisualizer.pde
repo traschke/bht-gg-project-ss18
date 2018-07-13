@@ -42,4 +42,12 @@ void draw()
   }
 
   player.draw();
+
+  showFps();
+}
+
+public void showFps() {
+  // display framerate & pixel size
+  text(nf(frameRate, 2, 1) + " fps", 10, 30);
+  text(width + "x" + height + " pixels", 10, 45);
 }
