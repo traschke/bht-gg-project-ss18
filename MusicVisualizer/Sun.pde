@@ -1,13 +1,13 @@
 /***
 *
 */
-class Landscape {
+class Sun {
   private int duration;
 
   private PShape sun;
   private int sunRiseHeight;
 
-  public Landscape(int duration, int sunRadian, PVector sunStartPos, int sunRiseHeight) {
+  public Sun(int duration, int sunRadian, PVector sunStartPos, int sunRiseHeight) {
     this.duration = duration;
 
     this.sunRiseHeight = sunRiseHeight;

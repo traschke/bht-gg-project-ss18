@@ -5,7 +5,7 @@ Minim minim;
 AudioPlayer song;
 BeatDetect beat;
 
-Landscape landscape;
+Sun sun;
 Player player;
 
 int lastBeat;
@@ -28,8 +28,7 @@ void setup()
   beat.setSensitivity(200);
 
   player = new Player(width/4, height, Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
-  landscape = new Landscape(song.length(), height/5, new PVector(0, height/3), height/4);
-  // landscape = new Landscape(10000, 100, new PVector(0, height - height), height);
+  sun = new Sun(song.length(), height/5, new PVector(0, height/3), height/4);
 }
 
 void draw()
@@ -38,8 +37,7 @@ void draw()
 
   beat.detect(song.mix);
 
-  landscape.draw(song.position());
-  // landscape.draw(millis());
+  sun.draw(song.position());
 
   if (beat.isOnset()) {
     int beatDelta = millis() - lastBeat;
