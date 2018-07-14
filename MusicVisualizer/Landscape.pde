@@ -7,8 +7,6 @@ class Landscape {
   private PShape sun;
   private int sunRiseHeight;
 
-  private PShader blurShader;
-
   public Landscape(int duration, int sunRadian, PVector sunStartPos, int sunRiseHeight) {
     this.duration = duration;
 
@@ -17,8 +15,6 @@ class Landscape {
     this.sun = createShape(ELLIPSE, sunStartPos.x, sunStartPos.y, sunRadian, sunRadian);
     this.sun.setFill(color(255, 255, 0));
     this.sun.setStrokeWeight(0);
-
-    this.blurShader = loadShader("blur.glsl");
   }
 
   public void draw(int durationProgress) {
@@ -46,27 +42,6 @@ class Landscape {
     timebar.setStrokeWeight(0);
 
     shape(timebar);
-  }
-
-  private PGraphics blurImage(PGraphics src) {
-    PGraphics pass1 = createGraphics(height, width);
-    PGraphics pass2 = createGraphics(height, width);
-
-    // Applying the blur shader along the vertical direction
-    this.blurShader.set("horizontalPass", 0);
-    pass1.beginDraw();
-    pass1.shader(this.blurShader);
-    pass1.image(src, 0, 0);
-    pass1.endDraw();
-
-    // Applying the blur shader along the horizontal direction
-    this.blurShader.set("horizontalPass", 1);
-    pass2.beginDraw();
-    pass2.shader(this.blurShader);
-    pass2.image(pass1, 0, 0);
-    pass2.endDraw();
-
-    return pass2;
   }
 
   private float getDurationProgressPercentage(int durationProgress) {
