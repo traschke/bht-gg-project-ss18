@@ -28,7 +28,7 @@ void setup()
   beat.setSensitivity(200);
 
   player = new Player(width/4, height, Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
-  sun = new Sun(song.length(), height/5, new PVector(0, height/3), height/4);
+  sun = new Sun(song.length(), height/5, new PVector(0, height/3), height/4, color(255, 255, 0), color(255, 90, 0));
 }
 
 void draw()
