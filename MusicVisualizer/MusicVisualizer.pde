@@ -15,11 +15,11 @@ int lastBeat;
 void setup()
 {
   size(1024, 576, P3D);
-  // surface.setResizable(true);
   // fullScreen(P3D);
 
   minim = new Minim(this);
-  song = minim.loadFile("levitation30s.mp3");
+  song = minim.loadFile("levitation.mp3");
+  // song = minim.loadFile("levitation30s.mp3");
   // song.cue(15000);
   song.play();
 
@@ -29,7 +29,7 @@ void setup()
   // beat.detectMode(BeatDetect.FREQ_ENERGY);
   beat.setSensitivity(200);
 
-  player = new Player(width/4, height, Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
+  player = new Player(width/4, int(height * 0.89), Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
   sun = new Sun(song.length(), height/5, new PVector(0, height/3), height/4, color(255, 255, 0), color(255, 90, 0));
 
   background = new Background();
