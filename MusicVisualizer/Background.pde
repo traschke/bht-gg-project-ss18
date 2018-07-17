@@ -13,7 +13,13 @@ class Background {
   public Background(int animationLength) {
     this.animationLength = animationLength;
 
-    this.sky = new Gradient(color(11, 101, 219), color(126, 221, 252), 1);
+    color dawnTop = color(89, 11, 89);
+    color dawnBottom = color(0, 0, 0);
+    color noonTop = color(125, 185, 232);
+    color noonBottom = color(30, 87, 153);
+    InterpolatingColor topC = new InterpolatingColor(dawnTop, noonTop, animationLength);
+    InterpolatingColor bottomC = new InterpolatingColor(dawnBottom, noonBottom, animationLength);
+    this.sky = new Gradient(topC, bottomC, 1);
 
     this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
 
@@ -35,6 +41,7 @@ class Background {
   }
 
   public void update(int durationProgress) {
+    this.sky.update(durationProgress);
     this.sun.update(durationProgress);
     this.mountainLayer1.move(0.25);
     this.treesLayer1.move(1.0);

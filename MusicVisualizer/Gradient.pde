@@ -4,22 +4,32 @@ class Gradient {
 
   private PGraphics image;
 
+  private InterpolatingColor ic1;
+  private InterpolatingColor ic2;
+
   private color c1;
   private color c2;
 
   private int axis;
 
+  private int animationLength;
+
   public Gradient() {
     this.image = createGraphics(width, height, P2D);
   }
 
-  public Gradient(color c1, color c2, int axis) {
+  public Gradient(InterpolatingColor ic1, InterpolatingColor ic2, int axis) {
     this();
 
-    this.c1 = c1;
-    this.c2 = c2;
+    this.ic1 = ic1;
+    this.ic2 = ic2;
 
     this.axis = axis;
+  }
+
+  public void update(int durationProgress) {
+    this.c1 = this.ic1.getColor(durationProgress);
+    this.c2 = this.ic2.getColor(durationProgress);
   }
 
   public void draw() {
@@ -27,7 +37,6 @@ class Gradient {
 
     image(this.image, 0, 0);
   }
-
 
   private void setGradient(int x, int y, float w, float h, color c1, color c2, int axis) {
     this.image.beginDraw();
