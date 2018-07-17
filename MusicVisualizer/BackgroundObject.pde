@@ -24,8 +24,8 @@ abstract class BackgroundObject implements IBackgroundObject {
     this.objWidth = objWidth;
     this.objHeight = aspectRatio * objWidth;
 
-    println("this.objWidth: "+this.objWidth);
-    println("this.objHeight: "+this.objHeight);
+    // println("this.objWidth: "+this.objWidth);
+    // println("this.objHeight: "+this.objHeight);
 
     this.rx = x;
     this.ry = y;

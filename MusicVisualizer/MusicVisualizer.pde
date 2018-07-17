@@ -7,7 +7,6 @@ BeatDetect beat;
 
 Background background;
 
-Sun sun;
 Player player;
 
 int lastBeat;
@@ -30,9 +29,8 @@ void setup()
   beat.setSensitivity(200);
 
   player = new Player(width/4, int(height * 0.89), Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
-  sun = new Sun(song.length(), height/5, new PVector(0, height/3), height/4, color(255, 255, 0), color(255, 90, 0));
 
-  background = new Background();
+  background = new Background(song.length());
 }
 
 void draw()
@@ -41,8 +39,7 @@ void draw()
 
   beat.detect(song.mix);
 
-  sun.draw(song.position());
-
+  background.update(song.position());
   background.draw();
 
   if (beat.isOnset()) {

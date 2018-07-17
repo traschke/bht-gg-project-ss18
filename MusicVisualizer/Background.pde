@@ -1,5 +1,8 @@
 class Background {
+  private int animationLength;
+
   Gradient sky;
+  Sun sun;
 
   BackgroundLayer treesLayer1;
   BackgroundLayer treesLayer2;
@@ -7,8 +10,12 @@ class Background {
   BackgroundLayer mountainLayer1;
   BackgroundLayer groundLayer;
 
-  public Background() {
-    this.sky = new Gradient(color(11, 101, 219), color(50, 200, 250), 1);
+  public Background(int animationLength) {
+    this.animationLength = animationLength;
+
+    this.sky = new Gradient(color(11, 101, 219), color(126, 221, 252), 1);
+
+    this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, color(255, 255, 0), color(255, 90, 0));
 
     this.treesLayer1 = new BackgroundLayer();
     this.treesLayer1.addObjects(this.generateTrees(100, height/10, height/100, height/2, height/2 + height/16, color(40, 142, 0), 150));
@@ -27,7 +34,8 @@ class Background {
     this.groundLayer.addObject(new Ground(width, int(height * 0.75), width + 1));
   }
 
-  private void update() {
+  public void update(int durationProgress) {
+    this.sun.update(durationProgress);
     this.mountainLayer1.move(0.25);
     this.treesLayer1.move(1.0);
     this.treesLayer2.move(2.0);
@@ -36,8 +44,8 @@ class Background {
   }
 
   public void draw() {
-    this.update();
     this.sky.draw();
+    this.sun.draw();
     this.mountainLayer1.draw();
     this.treesLayer1.draw();
     this.treesLayer2.draw();
