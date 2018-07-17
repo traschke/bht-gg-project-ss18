@@ -19,7 +19,7 @@ class Background {
     color noonBottom = color(30, 87, 153); // Slightly darker light blue
     InterpolatingColor topC = new InterpolatingColor(dawnTop, noonTop, animationLength);
     InterpolatingColor bottomC = new InterpolatingColor(dawnBottom, noonBottom, animationLength);
-    this.sky = new Gradient(topC, bottomC, 1);
+    this.sky = new Gradient(topC, bottomC, Gradient.Y_AXIS);
 
     this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
 
@@ -60,24 +60,39 @@ class Background {
     this.groundLayer.draw();
   }
 
+  private int jitterHeight(int height, int jitter) {
+    return int(random(height - jitter, height + jitter));
+  }
+
+  private color jitterColorBrightness(color c, int jitterBrightness) {
+    colorMode(HSB, 255);
+    float brightness = brightness(c);
+    float jitterBrightnessLow = brightness - jitterBrightness < 0 ? 0 : brightness - jitterBrightness;
+    float jitterBrightnessHigh = brightness + jitterBrightness > 255 ? 255 : brightness + jitterBrightness;
+    float jitteredBrightness = random(jitterBrightnessLow, jitterBrightnessHigh);
+    // println("Brightness        : " + brightness);
+    // println("jitteredBrightness: " + jitteredBrightness);
+    color jitteredColor = color(hue(c), saturation(c), jitteredBrightness);
+    colorMode(RGB, 255);
+
+    return jitteredColor;
+  }
+
+  private PVector getRandomPosition(int xLowBound, int xHighBound, int yLowBound, int yHighBound) {
+    int x = int(random(xLowBound, xHighBound));
+    int y = int(random(yLowBound, yHighBound));
+
+    return new PVector(x, y);
+  }
+
   private ArrayList<IBackgroundObject> generateTrees(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
     ArrayList<IBackgroundObject> trees = new ArrayList<IBackgroundObject>();
     for (int i = 0; i < treeCount; i++) {
-      int jitteredHeight = int(random(treeHeight - jitterHeight, treeHeight + jitterHeight));
-      int x = int(random(0, width));
-      int y = int(random(posBoundIn, posBoundOut));
+      int jitteredHeight = this.jitterHeight(treeHeight, jitterHeight);
+      PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
+      color jitteredColor = this.jitterColorBrightness(c, jitterBrightness);
 
-      colorMode(HSB, 255);
-      float brightness = brightness(c);
-      float jitterBrightnessLow = brightness - jitterBrightness < 0 ? 0 : brightness - jitterBrightness;
-      float jitterBrightnessHigh = brightness + jitterBrightness > 255 ? 255 : brightness + jitterBrightness;
-      float jitteredBrightness = random(jitterBrightnessLow, jitterBrightnessHigh);
-      // println("Brightness        : " + brightness);
-      // println("jitteredBrightness: " + jitteredBrightness);
-      color jitteredColor = color(hue(c), saturation(c), jitteredBrightness);
-      colorMode(RGB, 255);
-
-      trees.add(new Tree(x, y, jitteredHeight, jitteredColor));
+      trees.add(new Tree(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
     }
     return trees;
   }
@@ -85,21 +100,11 @@ class Background {
   private ArrayList<IBackgroundObject> generateMountains(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
     ArrayList<IBackgroundObject> trees = new ArrayList<IBackgroundObject>();
     for (int i = 0; i < treeCount; i++) {
-      int jitteredHeight = int(random(treeHeight - jitterHeight, treeHeight + jitterHeight));
-      int x = int(random(0, width));
-      int y = int(random(posBoundIn, posBoundOut));
+      int jitteredHeight = this.jitterHeight(treeHeight, jitterHeight);
+      PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
+      color jitteredColor = this.jitterColorBrightness(c, jitterBrightness);
 
-      colorMode(HSB, 255);
-      float brightness = brightness(c);
-      float jitterBrightnessLow = brightness - jitterBrightness < 0 ? 0 : brightness - jitterBrightness;
-      float jitterBrightnessHigh = brightness + jitterBrightness > 255 ? 255 : brightness + jitterBrightness;
-      float jitteredBrightness = random(jitterBrightnessLow, jitterBrightnessHigh);
-      // println("Brightness        : " + brightness);
-      // println("jitteredBrightness: " + jitteredBrightness);
-      color jitteredColor = color(hue(c), saturation(c), jitteredBrightness);
-      colorMode(RGB, 255);
-
-      trees.add(new Mountain(x, y, jitteredHeight, jitteredColor));
+      trees.add(new Mountain(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
     }
     return trees;
   }
