@@ -28,7 +28,7 @@ void setup()
   // beat.detectMode(BeatDetect.FREQ_ENERGY);
   beat.setSensitivity(200);
 
-  player = new Player(width/4, int(height * 0.89), Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
+  player = new Player(width/4, int(height * 0.8885), Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
 
   background = new Background(song.length());
 }
