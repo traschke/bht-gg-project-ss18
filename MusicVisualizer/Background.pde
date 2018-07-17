@@ -13,10 +13,10 @@ class Background {
   public Background(int animationLength) {
     this.animationLength = animationLength;
 
-    color dawnTop = color(89, 11, 89);
-    color dawnBottom = color(0, 0, 0);
-    color noonTop = color(125, 185, 232);
-    color noonBottom = color(30, 87, 153);
+    color dawnTop = color(89, 11, 89); // Purple
+    color dawnBottom = color(0, 0, 0); // Black
+    color noonTop = color(125, 185, 232); // Light blue
+    color noonBottom = color(30, 87, 153); // Slightly darker light blue
     InterpolatingColor topC = new InterpolatingColor(dawnTop, noonTop, animationLength);
     InterpolatingColor bottomC = new InterpolatingColor(dawnBottom, noonBottom, animationLength);
     this.sky = new Gradient(topC, bottomC, 1);

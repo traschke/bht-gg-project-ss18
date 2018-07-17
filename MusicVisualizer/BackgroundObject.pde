@@ -35,6 +35,7 @@ abstract class BackgroundObject implements IBackgroundObject {
     println("Created obj at " + x + ", " + y);
   }
 
+  // TODO Make time the movement factor, not frames
   public void move(float step) {
     rx -= step;
 
