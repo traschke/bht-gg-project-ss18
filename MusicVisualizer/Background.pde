@@ -1,4 +1,6 @@
 class Background {
+  Gradient sky;
+
   BackgroundLayer treesLayer1;
   BackgroundLayer treesLayer2;
   BackgroundLayer treesLayer3;
@@ -6,6 +8,8 @@ class Background {
   BackgroundLayer groundLayer;
 
   public Background() {
+    this.sky = new Gradient(color(11, 101, 219), color(50, 200, 250), 1);
+
     this.treesLayer1 = new BackgroundLayer();
     this.treesLayer1.addObjects(this.generateTrees(100, height/10, height/100, height/2, height/2 + height/16, color(40, 142, 0), 150));
     
@@ -24,6 +28,7 @@ class Background {
   }
 
   private void update() {
+    this.sky.draw();
     this.mountainLayer1.move(0.25);
     this.treesLayer1.move(1.0);
     this.treesLayer2.move(2.0);
