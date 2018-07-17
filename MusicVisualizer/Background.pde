@@ -28,7 +28,6 @@ class Background {
   }
 
   private void update() {
-    this.sky.draw();
     this.mountainLayer1.move(0.25);
     this.treesLayer1.move(1.0);
     this.treesLayer2.move(2.0);
@@ -38,6 +37,7 @@ class Background {
 
   public void draw() {
     this.update();
+    this.sky.draw();
     this.mountainLayer1.draw();
     this.treesLayer1.draw();
     this.treesLayer2.draw();
