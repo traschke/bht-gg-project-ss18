@@ -7,16 +7,14 @@ class Sun {
   private PShape sun;
   private int sunRiseHeight;
 
-  private color sunColor;
-  private color sunSetColor;
+  private InterpolatingColor c;
 
-  public Sun(int duration, int sunRadian, PVector sunStartPos, int sunRiseHeight, color sunColor, color sunSetColor) {
+  public Sun(int duration, int sunRadian, PVector sunStartPos, int sunRiseHeight, InterpolatingColor c) {
     this.duration = duration;
 
     this.sunRiseHeight = sunRiseHeight;
 
-    this.sunColor = sunColor;
-    this.sunSetColor = sunSetColor;
+    this.c = c;
 
     this.sun = createShape(ELLIPSE, sunStartPos.x, sunStartPos.y, sunRadian, sunRadian);
     this.sun.setFill(color(255, 255, 0));
@@ -29,9 +27,7 @@ class Sun {
     float currentY = (float)sine * (float)this.sunRiseHeight;
     float currentX = (float)width * durationProgressPercent;
 
-    // Use sine to map sunSetColor to begin and end and sunColor to highest sun point (high noon)
-    color currentSunColor = lerpColor(this.sunSetColor, this.sunColor, (float)Math.sin(durationProgressPercent * PI));
-    this.sun.setFill(currentSunColor);
+    this.sun.setFill(this.c.getColor(durationProgress));
 
     this.sun.resetMatrix();
     // * -1 because the zero point of the scene is in the upper left corner!

@@ -13,12 +13,12 @@ int lastBeat;
 
 void setup()
 {
-  size(1024, 576, P3D);
-  // fullScreen(P3D);
+  size(1024, 576, P2D);
+  // fullScreen(P2D);
 
   minim = new Minim(this);
-  song = minim.loadFile("levitation.mp3");
-  // song = minim.loadFile("levitation30s.mp3");
+  // song = minim.loadFile("levitation.mp3");
+  song = minim.loadFile("levitation30s.mp3");
   // song.cue(15000);
   song.play();
 

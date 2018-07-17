@@ -15,7 +15,7 @@ class Background {
 
     this.sky = new Gradient(color(11, 101, 219), color(126, 221, 252), 1);
 
-    this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, color(255, 255, 0), color(255, 90, 0));
+    this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
 
     this.treesLayer1 = new BackgroundLayer();
     this.treesLayer1.addObjects(this.generateTrees(100, height/10, height/100, height/2, height/2 + height/16, color(40, 142, 0), 150));
