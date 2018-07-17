@@ -4,6 +4,8 @@ class Background {
   Gradient sky;
   Sun sun;
 
+  PShape farGround;
+
   BackgroundLayer treesLayer1;
   BackgroundLayer treesLayer2;
   BackgroundLayer treesLayer3;
@@ -22,6 +24,10 @@ class Background {
     this.sky = new Gradient(topC, bottomC, Gradient.Y_AXIS);
 
     this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
+
+    this.farGround = createShape(RECT, 0, height*0.5, width, height*0.5);
+    this.farGround.setFill(color(255, 0, 0));
+    this.farGround.setStroke(false);
 
     this.treesLayer1 = new BackgroundLayer();
     this.treesLayer1.addObjects(this.generateTrees(100, height/10, height/100, height/2, height/2 + height/16, color(40, 142, 0), 150));
@@ -53,6 +59,7 @@ class Background {
   public void draw() {
     this.sky.draw();
     this.sun.draw();
+    // shape(this.farGround);
     this.mountainLayer1.draw();
     this.treesLayer1.draw();
     this.treesLayer2.draw();
@@ -92,7 +99,18 @@ class Background {
       PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
       color jitteredColor = this.jitterColorBrightness(c, jitterBrightness);
 
-      trees.add(new Tree(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
+      int treeType = Math.round(random(1, 3));
+      switch(treeType) {
+        case 1:
+          trees.add(new Tree01(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
+          break;
+        case 2:
+          trees.add(new Tree02(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
+          break;
+        case 3:
+          trees.add(new Tree03(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
+          break;
+      }
     }
     return trees;
   }
@@ -104,7 +122,15 @@ class Background {
       PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
       color jitteredColor = this.jitterColorBrightness(c, jitterBrightness);
 
-      trees.add(new Mountain(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
+      int treeType = Math.round(random(1, 3));
+      switch(treeType) {
+        case 1:
+          trees.add(new Mountain01(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
+          break;
+        case 2:
+          trees.add(new Mountain02(int(pos.x), int(pos.y), jitteredHeight, jitteredColor));
+          break;
+      }
     }
     return trees;
   }

@@ -8,6 +8,12 @@ tbc...
 Tree by Tjaša Kimovec from the Noun Project  
 https://thenounproject.com/term/tree/1088718/
 
+Tree by Edward Boatman from the Noun Project  
+https://thenounproject.com/term/tree/173/
+
+Tree by Tin Phatanapirom from the Noun Project  
+https://thenounproject.com/term/tree/10225/
+
 ## Mountains
 Mountain by iconcheese from the Noun Project  
 https://thenounproject.com/term/mountain/1639115
