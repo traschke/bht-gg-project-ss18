@@ -18,9 +18,9 @@ class BackgroundLayer {
     println("#######");
   }
 
-  public void move(float speed) {
+  public void move(int currentMillis, float speed) {
     for(BackgroundObject bgObject : this.bgObjects) {
-      bgObject.move(speed);
+      bgObject.move(currentMillis, speed);
     }
   }
 

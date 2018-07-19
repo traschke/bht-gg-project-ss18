@@ -15,6 +15,8 @@ class Background {
   BackgroundLayer mountainLayer1;
   BackgroundLayer groundLayer;
 
+  float baseSpeed = 0.3;
+
   public Background(int animationLength) {
     this.animationLength = animationLength;
 
@@ -56,12 +58,12 @@ class Background {
   public void update(int durationProgress) {
     this.sky.update(durationProgress);
     this.sun.update(durationProgress);
-    this.mountainLayer1.move(0.25);
-    this.treesLayer1.move(1.0);
-    this.treesLayer1p5.move(1.5);
-    this.treesLayer2.move(2.0);
-    this.treesLayer3.move(3.0);
-    this.groundLayer.move(5.0);
+    this.mountainLayer1.move(durationProgress, this.baseSpeed / 32);
+    this.treesLayer1.move(   durationProgress, this.baseSpeed / 16);
+    this.treesLayer1p5.move( durationProgress, this.baseSpeed / 8);
+    this.treesLayer2.move(   durationProgress, this.baseSpeed / 4);
+    this.treesLayer3.move(   durationProgress, this.baseSpeed / 2);
+    this.groundLayer.move(   durationProgress, this.baseSpeed);
   }
 
   public void draw() {

@@ -5,6 +5,8 @@ abstract class BackgroundObject implements IBackgroundObject, Comparable<Backgro
   private float objWidth;
   private float objHeight;
 
+  private int lastMillis;
+
   public BackgroundObject(PShape objShape, int x, int y, int objHeight, float origWidth, float origHeight, color c) {
     float aspectRatio = origWidth / origHeight;
     this.objHeight = objHeight;
@@ -36,9 +38,10 @@ abstract class BackgroundObject implements IBackgroundObject, Comparable<Backgro
     // println("Created obj at " + x + ", " + y);
   }
 
-  // TODO Make time the movement factor, not frames
-  public void move(float step) {
-    rx -= step;
+  public void move(int currentMillis, float speed) {
+    int deltaMillis = currentMillis - this.lastMillis;
+    this.lastMillis = currentMillis;
+    rx -= deltaMillis * speed;
 
     if (rx <= 0 - this.objWidth) {
       rx = width;

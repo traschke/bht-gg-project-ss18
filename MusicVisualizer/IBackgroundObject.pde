@@ -1,4 +1,4 @@
 interface IBackgroundObject {
-  void move(float step);
+  void move(int currentMillis, float speed);
   void draw();
 }
