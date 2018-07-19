@@ -1,4 +1,4 @@
-abstract class BackgroundObject implements IBackgroundObject {
+abstract class BackgroundObject implements IBackgroundObject, Comparable<BackgroundObject> {
   private PShape objShape;
   private float rx;
   private float ry;
@@ -11,12 +11,13 @@ abstract class BackgroundObject implements IBackgroundObject {
     this.objWidth = aspectRatio * objHeight;
 
     this.rx = x;
-    this.ry = y;
+    // Workaround to set the lower corner of the shape
+    this.ry = y - this.objHeight;
 
     this.objShape = objShape;
     this.objShape.setFill(c);
     this.objShape.setStrokeWeight(0);
-    println("Created obj at " + x + ", " + y);
+    // println("Created obj at " + x + ", " + y);
   }
 
   public BackgroundObject(PShape objShape, int x, int y, int objWidth, float origWidth, float origHeight) {
@@ -32,7 +33,7 @@ abstract class BackgroundObject implements IBackgroundObject {
 
     this.objShape = objShape;
     this.objShape.setStrokeWeight(0);
-    println("Created obj at " + x + ", " + y);
+    // println("Created obj at " + x + ", " + y);
   }
 
   // TODO Make time the movement factor, not frames
@@ -44,7 +45,18 @@ abstract class BackgroundObject implements IBackgroundObject {
     }
   }
 
+  protected float getYPos() {
+    return this.ry;
+  }
+
   public void draw() {
     shape(this.objShape, rx, ry, this.objWidth, this.objHeight);
+  }
+
+  @Override
+  public int compareTo(BackgroundObject bgObj) {
+    Float f1 = Float.valueOf(this.getYPos());
+    Float f2 = Float.valueOf(bgObj.getYPos());
+    return f1.compareTo(f2);
   }
 }

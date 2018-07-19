@@ -1,3 +1,5 @@
+import java.util.Collections;
+
 class Background {
   private int animationLength;
 
@@ -7,6 +9,7 @@ class Background {
   PShape farGround;
 
   BackgroundLayer treesLayer1;
+  BackgroundLayer treesLayer1p5;
   BackgroundLayer treesLayer2;
   BackgroundLayer treesLayer3;
   BackgroundLayer mountainLayer1;
@@ -25,21 +28,25 @@ class Background {
 
     this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
 
-    this.farGround = createShape(RECT, 0, height*0.5, width, height*0.5);
-    this.farGround.setFill(color(255, 0, 0));
+    this.farGround = createShape(RECT, 0, height*0.50, width, height*0.50);
+    this.farGround.setFill(color(169, 124, 80));
     this.farGround.setStroke(false);
 
     this.treesLayer1 = new BackgroundLayer();
-    this.treesLayer1.addObjects(this.generateTrees(100, height/10, height/100, height/2, height/2 + height/16, color(40, 142, 0), 150));
+    this.treesLayer1.addObjects(this.generateTrees(64, int(height*0.1), int(height*0.01), int(height*0.55), int(height*0.60), color(40, 142, 0), 150));
     
+    this.treesLayer1p5 = new BackgroundLayer();
+    this.treesLayer1p5.addObjects(this.generateTrees(48, int(height*0.15), int(height*0.05), int(height*0.60), int(height*0.65), color(0, 214, 53), 150));
+    
+
     this.treesLayer2 = new BackgroundLayer();
-    this.treesLayer2.addObjects(this.generateTrees(50, height/4, height/50, (height/8)*4, (height/8)*5, color(0, 214, 53), 150));
+    this.treesLayer2.addObjects(this.generateTrees(32, int(height*0.25), int(height*0.10), int(height*0.7), int(height*0.8), color(0, 214, 53), 150));
     
     this.treesLayer3 = new BackgroundLayer();
-    this.treesLayer3.addObjects(this.generateTrees(10, height, height/25, (height/8)*4, (height/8)*5, color(0, 214, 53), 150));
+    this.treesLayer3.addObjects(this.generateTrees(4, int(height*0.75), int(height*0.15), int(height*0.85), int(height*0.90), color(0, 214, 53), 150));
     
     this.mountainLayer1 = new BackgroundLayer();
-    this.mountainLayer1.addObjects(this.generateMountains(25, height/2, height/6, height/8, height/2, color(186, 186, 186), 150));
+    this.mountainLayer1.addObjects(this.generateMountains(16, int(height*0.30), int(height*0.15), int(height*0.53), int(height*0.55), color(186, 186, 186), 150));
 
     this.groundLayer = new BackgroundLayer();
     this.groundLayer.addObject(new Ground(0, int(height * 0.75), width));
@@ -51,6 +58,7 @@ class Background {
     this.sun.update(durationProgress);
     this.mountainLayer1.move(0.25);
     this.treesLayer1.move(1.0);
+    this.treesLayer1p5.move(1.5);
     this.treesLayer2.move(2.0);
     this.treesLayer3.move(3.0);
     this.groundLayer.move(5.0);
@@ -59,9 +67,10 @@ class Background {
   public void draw() {
     this.sky.draw();
     this.sun.draw();
-    // shape(this.farGround);
+    shape(this.farGround);
     this.mountainLayer1.draw();
     this.treesLayer1.draw();
+    this.treesLayer1p5.draw();
     this.treesLayer2.draw();
     this.treesLayer3.draw();
     this.groundLayer.draw();
@@ -92,8 +101,8 @@ class Background {
     return new PVector(x, y);
   }
 
-  private ArrayList<IBackgroundObject> generateTrees(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
-    ArrayList<IBackgroundObject> trees = new ArrayList<IBackgroundObject>();
+  private ArrayList<BackgroundObject> generateTrees(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
+    ArrayList<BackgroundObject> trees = new ArrayList<BackgroundObject>();
     for (int i = 0; i < treeCount; i++) {
       int jitteredHeight = this.jitterHeight(treeHeight, jitterHeight);
       PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
@@ -112,11 +121,16 @@ class Background {
           break;
       }
     }
+
+    Collections.sort(trees);
+
+    
+
     return trees;
   }
 
-  private ArrayList<IBackgroundObject> generateMountains(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
-    ArrayList<IBackgroundObject> trees = new ArrayList<IBackgroundObject>();
+  private ArrayList<BackgroundObject> generateMountains(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
+    ArrayList<BackgroundObject> trees = new ArrayList<BackgroundObject>();
     for (int i = 0; i < treeCount; i++) {
       int jitteredHeight = this.jitterHeight(treeHeight, jitterHeight);
       PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
