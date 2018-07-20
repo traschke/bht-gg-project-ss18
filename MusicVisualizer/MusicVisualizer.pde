@@ -17,6 +17,7 @@ void setup()
 {
   size(1024, 576, P2D);
   // fullScreen(P2D);
+  smooth(8);
 
   minim = new Minim(this);
   song = minim.loadFile("levitation.mp3", 1024);
