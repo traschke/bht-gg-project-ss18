@@ -7,6 +7,11 @@ class Sun {
   private PShape sun;
   private int sunRiseHeight;
 
+  private float sunStartY;
+  private float rx;
+  private float ry;
+  private int sunRadian;
+
   private InterpolatingColor c;
 
   public Sun(int duration, int sunRadian, PVector sunStartPos, int sunRiseHeight, InterpolatingColor c) {
@@ -16,26 +21,34 @@ class Sun {
 
     this.c = c;
 
-    this.sun = createShape(ELLIPSE, sunStartPos.x, sunStartPos.y, sunRadian, sunRadian);
-    this.sun.setFill(color(255, 255, 0));
+    this.sunRadian = sunRadian;
+    this.sunStartY = sunStartPos.y;
+    this.rx = sunStartPos.x;
+    this.ry = sunStartPos.y;
+    // this.sun = createShape(ELLIPSE, sunStartPos.x, sunStartPos.y, sunRadian, sunRadian);
+    this.sun = loadShape("sun.svg");
+    // this.sun.setFill(color(255, 255, 0));
     this.sun.setStrokeWeight(0);
   }
 
   public void update(int durationProgress) {
     float durationProgressPercent = this.getDurationProgressPercentage(durationProgress);
     double sine = Math.sin(PI * durationProgressPercent);
-    float currentY = (float)sine * (float)this.sunRiseHeight;
-    float currentX = (float)width * durationProgressPercent;
+    this.rx = (float)width * durationProgressPercent;
+    this.ry = this.sunStartY - (float)sine * (float)this.sunRiseHeight;
+    println("sun.x, sun.y: ", this.rx + ", " + this.ry);
 
     this.sun.setFill(this.c.getColor(durationProgress));
 
-    this.sun.resetMatrix();
+    // this.sun.resetMatrix();
     // * -1 because the zero point of the scene is in the upper left corner!
-    this.sun.translate(currentX, currentY * -1);
+    // this.sun.translate(currentX, currentY * -1);
   }
 
   private void draw() {
-    shape(this.sun);
+    shapeMode(CENTER);
+    shape(this.sun, this.rx, this.ry, this.sunRadian, this.sunRadian);
+    shapeMode(CORNER);
   }
 
   // private void drawTimebar(int durationProgress) {
