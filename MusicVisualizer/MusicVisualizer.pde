@@ -65,7 +65,7 @@ void draw()
   // drawBeatDetectSpectrum();
 
   showFps();
-  saveFrame("line-######.png");
+  // saveFrame("line-######.png");
 }
 
 // void keyPressed() {
