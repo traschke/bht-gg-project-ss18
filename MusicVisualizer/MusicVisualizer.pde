@@ -35,17 +35,16 @@ void setup()
   player = new Player(width/4, int(height * 0.8885), Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
 
   background = new Background(song.length());
-  try {
-    Thread.sleep(10000);
-  } catch(InterruptedException e) {
-      System.out.println("got interrupted!");
-  }
+  // try {
+  //   Thread.sleep(10000);
+  // } catch(InterruptedException e) {
+  //     System.out.println("got interrupted!");
+  // }
   song.play();
 }
 
 void draw()
 {
-  background(0);
 
   beat.detect(song.mix);
   // if (beat.isRange(low, high, threshold)) {
@@ -55,6 +54,7 @@ void draw()
     }
   }
 
+  background(0);
   background.update(song.position());
 
   background.draw();

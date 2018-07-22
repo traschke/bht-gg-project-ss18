@@ -3,19 +3,22 @@ import java.util.Collections;
 class Background {
   private int animationLength;
 
-  Gradient sky;
-  Sun sun;
+  private Gradient sky;
+  private Sun sun;
 
-  PShape farGround;
+  private BackgroundLayer mountainLayer1;
 
-  BackgroundLayer treesLayer1;
-  BackgroundLayer treesLayer1p5;
-  BackgroundLayer treesLayer2;
-  BackgroundLayer treesLayer3;
-  BackgroundLayer mountainLayer1;
-  BackgroundLayer groundLayer;
+  private PShape farGround;
 
-  float baseSpeed = 0.3;
+  // Tree layers, from far to near
+  private BackgroundLayer treesLayer1;
+  private BackgroundLayer treesLayer2;
+  private BackgroundLayer treesLayer3;
+  private BackgroundLayer treesLayer4;
+
+  private BackgroundLayer groundLayer;
+
+  private float baseSpeed = 0.3;
 
   public Background(int animationLength) {
     this.animationLength = animationLength;
@@ -37,15 +40,14 @@ class Background {
     this.treesLayer1 = new BackgroundLayer();
     this.treesLayer1.addObjects(this.generateTrees(64, int(height*0.1), int(height*0.01), int(height*0.55), int(height*0.60), color(40, 142, 0), 150));
     
-    this.treesLayer1p5 = new BackgroundLayer();
-    this.treesLayer1p5.addObjects(this.generateTrees(48, int(height*0.15), int(height*0.05), int(height*0.60), int(height*0.65), color(0, 214, 53), 150));
-    
-
     this.treesLayer2 = new BackgroundLayer();
-    this.treesLayer2.addObjects(this.generateTrees(32, int(height*0.25), int(height*0.10), int(height*0.7), int(height*0.8), color(0, 214, 53), 150));
-    
+    this.treesLayer2.addObjects(this.generateTrees(48, int(height*0.15), int(height*0.05), int(height*0.60), int(height*0.65), color(0, 214, 53), 150));
+
     this.treesLayer3 = new BackgroundLayer();
-    this.treesLayer3.addObjects(this.generateTrees(4, int(height*0.75), int(height*0.15), int(height*0.85), int(height*0.90), color(0, 214, 53), 150));
+    this.treesLayer3.addObjects(this.generateTrees(32, int(height*0.25), int(height*0.10), int(height*0.7), int(height*0.8), color(0, 214, 53), 150));
+    
+    this.treesLayer4 = new BackgroundLayer();
+    this.treesLayer4.addObjects(this.generateTrees(4, int(height*0.75), int(height*0.15), int(height*0.85), int(height*0.90), color(0, 214, 53), 150));
     
     this.mountainLayer1 = new BackgroundLayer();
     this.mountainLayer1.addObjects(this.generateMountains(16, int(height*0.30), int(height*0.15), int(height*0.53), int(height*0.55), color(186, 186, 186), 150));
@@ -60,9 +62,9 @@ class Background {
     this.sun.update(durationProgress);
     this.mountainLayer1.move(durationProgress, this.baseSpeed / 32);
     this.treesLayer1.move(   durationProgress, this.baseSpeed / 16);
-    this.treesLayer1p5.move( durationProgress, this.baseSpeed / 8);
-    this.treesLayer2.move(   durationProgress, this.baseSpeed / 4);
-    this.treesLayer3.move(   durationProgress, this.baseSpeed / 2);
+    this.treesLayer2.move(   durationProgress, this.baseSpeed / 8);
+    this.treesLayer3.move(   durationProgress, this.baseSpeed / 4);
+    this.treesLayer4.move(   durationProgress, this.baseSpeed / 2);
     this.groundLayer.move(   durationProgress, this.baseSpeed);
   }
 
@@ -72,9 +74,9 @@ class Background {
     shape(this.farGround);
     this.mountainLayer1.draw();
     this.treesLayer1.draw();
-    this.treesLayer1p5.draw();
     this.treesLayer2.draw();
     this.treesLayer3.draw();
+    this.treesLayer4.draw();
     this.groundLayer.draw();
   }
 
@@ -123,9 +125,6 @@ class Background {
     }
 
     Collections.sort(trees);
-
-    
-
     return trees;
   }
 
@@ -146,6 +145,8 @@ class Background {
           break;
       }
     }
+
+    Collections.sort(trees);
     return trees;
   }
 }
