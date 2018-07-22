@@ -20,8 +20,12 @@ class Background {
 
   private float baseSpeed = 0.3;
 
+  private Helper helper;
+
   public Background(int animationLength) {
     this.animationLength = animationLength;
+
+    this.helper = new Helper();
 
     color dawnTop = color(89, 11, 89); // Purple
     color dawnBottom = color(0, 0, 0); // Black
@@ -80,35 +84,12 @@ class Background {
     this.groundLayer.draw();
   }
 
-  private int jitterHeight(int height, int jitter) {
-    return int(random(height - jitter, height + jitter));
-  }
-
-  private color jitterColorBrightness(color c, int jitterBrightness) {
-    colorMode(HSB, 255);
-    float brightness = brightness(c);
-    float jitterBrightnessLow = brightness - jitterBrightness < 0 ? 0 : brightness - jitterBrightness;
-    float jitterBrightnessHigh = brightness + jitterBrightness > 255 ? 255 : brightness + jitterBrightness;
-    float jitteredBrightness = random(jitterBrightnessLow, jitterBrightnessHigh);
-    color jitteredColor = color(hue(c), saturation(c), jitteredBrightness);
-    colorMode(RGB, 255);
-
-    return jitteredColor;
-  }
-
-  private PVector getRandomPosition(int xLowBound, int xHighBound, int yLowBound, int yHighBound) {
-    int x = int(random(xLowBound, xHighBound));
-    int y = int(random(yLowBound, yHighBound));
-
-    return new PVector(x, y);
-  }
-
   private ArrayList<BackgroundObject> generateTrees(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
     ArrayList<BackgroundObject> trees = new ArrayList<BackgroundObject>();
     for (int i = 0; i < treeCount; i++) {
-      int jitteredHeight = this.jitterHeight(treeHeight, jitterHeight);
-      PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
-      color jitteredColor = this.jitterColorBrightness(c, jitterBrightness);
+      int jitteredHeight = this.helper.jitterHeight(treeHeight, jitterHeight);
+      PVector pos = this.helper.getRandomPosition(0, width, posBoundIn, posBoundOut);
+      color jitteredColor = this.helper.jitterColorBrightness(c, jitterBrightness);
 
       int treeType = Math.round(random(1, 3));
       switch(treeType) {
@@ -131,9 +112,9 @@ class Background {
   private ArrayList<BackgroundObject> generateMountains(int treeCount, int treeHeight, int jitterHeight, int posBoundIn, int posBoundOut, color c, int jitterBrightness) {
     ArrayList<BackgroundObject> trees = new ArrayList<BackgroundObject>();
     for (int i = 0; i < treeCount; i++) {
-      int jitteredHeight = this.jitterHeight(treeHeight, jitterHeight);
-      PVector pos = this.getRandomPosition(0, width, posBoundIn, posBoundOut);
-      color jitteredColor = this.jitterColorBrightness(c, jitterBrightness);
+      int jitteredHeight = this.helper.jitterHeight(treeHeight, jitterHeight);
+      PVector pos = this.helper.getRandomPosition(0, width, posBoundIn, posBoundOut);
+      color jitteredColor = this.helper.jitterColorBrightness(c, jitterBrightness);
 
       int treeType = Math.round(random(1, 3));
       switch(treeType) {
