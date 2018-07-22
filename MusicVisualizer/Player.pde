@@ -25,7 +25,7 @@ class Player {
       this.jumpMillisEnd = this.jumpMillisBegin + this.jumpMillisDuration;
   }
 
-  public void draw() {
+  public void update() {
     int millisSinceJumpBegin = millis() - this.jumpMillisBegin;
     float durationPercentage = (float)millisSinceJumpBegin / (float)this.jumpMillisDuration;
     
@@ -39,7 +39,9 @@ class Player {
     } else {
       this.rest();
     }
+  }
 
+  public void draw() {
     shape(this.playerSprite);
   }
 

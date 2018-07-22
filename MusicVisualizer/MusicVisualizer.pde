@@ -43,9 +43,7 @@ void setup()
   song.play();
 }
 
-void draw()
-{
-
+void update() {
   beat.detect(song.mix);
   // if (beat.isRange(low, high, threshold)) {
   if (song.position() > 16500) {
@@ -54,18 +52,32 @@ void draw()
     }
   }
 
-  background(0);
   background.update(song.position());
+  player.update();
+}
+
+void draw()
+{
+  update();
+
+  background(0);
 
   background.draw();
   player.draw();
+
+  showFps();
 
   // FFT debug
   // drawSpectrum();
   // drawBeatDetectSpectrum();
 
-  showFps();
   // saveFrame("line-######.png");
+}
+
+public void showFps() {
+  // display framerate & pixel size
+  text(nf(frameRate, 2, 1) + " fps", 10, 30);
+  text(width + "x" + height + " pixels", 10, 45);
 }
 
 // void keyPressed() {
@@ -104,12 +116,6 @@ void draw()
 //     }
 //   }
 // }
-
-public void showFps() {
-  // display framerate & pixel size
-  text(nf(frameRate, 2, 1) + " fps", 10, 30);
-  text(width + "x" + height + " pixels", 10, 45);
-}
 
 // public void drawSpectrum() {
 //   background(0);
