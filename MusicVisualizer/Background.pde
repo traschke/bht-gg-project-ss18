@@ -35,7 +35,7 @@ class Background {
     InterpolatingColor bottomC = new InterpolatingColor(dawnBottom, noonBottom, animationLength);
     this.sky = new Gradient(topC, bottomC, Gradient.Y_AXIS);
 
-    this.sun = new Sun(animationLength, height/5, new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
+    this.sun = new Sun(animationLength, int(height*0.2), int(height*0.12), new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
 
     this.farGround = createShape(RECT, 0, height*0.50, width, height*0.50);
     this.farGround.setFill(color(169, 124, 80));
