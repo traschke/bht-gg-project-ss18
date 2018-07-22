@@ -36,13 +36,8 @@ class Sun {
     double sine = Math.sin(PI * durationProgressPercent);
     this.rx = (float)width * durationProgressPercent;
     this.ry = this.sunStartY - (float)sine * (float)this.sunRiseHeight;
-    println("sun.x, sun.y: ", this.rx + ", " + this.ry);
 
     this.sun.setFill(this.c.getColor(durationProgress));
-
-    // this.sun.resetMatrix();
-    // * -1 because the zero point of the scene is in the upper left corner!
-    // this.sun.translate(currentX, currentY * -1);
   }
 
   private void draw() {
@@ -64,5 +59,4 @@ class Sun {
   private float getDurationProgressPercentage(int durationProgress) {
     return (float)durationProgress / (float)this.duration;
   }
-
 }

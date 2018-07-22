@@ -11,11 +11,6 @@ class BackgroundLayer {
 
   public void addObjects(ArrayList<BackgroundObject> objs) {
     this.bgObjects.addAll(objs);
-
-    for (BackgroundObject bgo : this.bgObjects) {
-      println(bgo.getYPos());
-    }
-    println("#######");
   }
 
   public void move(int currentMillis, float speed) {

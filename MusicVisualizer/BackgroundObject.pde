@@ -1,4 +1,4 @@
-abstract class BackgroundObject implements IBackgroundObject, Comparable<BackgroundObject> {
+abstract class BackgroundObject implements Comparable<BackgroundObject> {
   private PShape objShape;
   private float rx;
   private float ry;
@@ -19,7 +19,6 @@ abstract class BackgroundObject implements IBackgroundObject, Comparable<Backgro
     this.objShape = objShape;
     this.objShape.setFill(c);
     this.objShape.setStrokeWeight(0);
-    // println("Created obj at " + x + ", " + y);
   }
 
   public BackgroundObject(PShape objShape, int x, int y, int objWidth, float origWidth, float origHeight) {
@@ -27,15 +26,11 @@ abstract class BackgroundObject implements IBackgroundObject, Comparable<Backgro
     this.objWidth = objWidth;
     this.objHeight = aspectRatio * objWidth;
 
-    // println("this.objWidth: "+this.objWidth);
-    // println("this.objHeight: "+this.objHeight);
-
     this.rx = x;
     this.ry = y;
 
     this.objShape = objShape;
     this.objShape.setStrokeWeight(0);
-    // println("Created obj at " + x + ", " + y);
   }
 
   public void move(int currentMillis, float speed) {

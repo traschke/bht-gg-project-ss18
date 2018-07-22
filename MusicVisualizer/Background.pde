@@ -88,8 +88,6 @@ class Background {
     float jitterBrightnessLow = brightness - jitterBrightness < 0 ? 0 : brightness - jitterBrightness;
     float jitterBrightnessHigh = brightness + jitterBrightness > 255 ? 255 : brightness + jitterBrightness;
     float jitteredBrightness = random(jitterBrightnessLow, jitterBrightnessHigh);
-    // println("Brightness        : " + brightness);
-    // println("jitteredBrightness: " + jitteredBrightness);
     color jitteredColor = color(hue(c), saturation(c), jitteredBrightness);
     colorMode(RGB, 255);
 
