@@ -15,9 +15,9 @@ int threshold = 2;
 
 void setup()
 {
-  // size(1280, 720, P2D);
-  fullScreen(P2D);
-  smooth(8);
+  size(1280, 720, P2D);
+  // fullScreen(P2D);
+  smooth(0);
 
   minim = new Minim(this);
   song = minim.loadFile("levitation.mp3", 1024);
@@ -32,7 +32,7 @@ void setup()
 
   // fft = new FFT(song.bufferSize(), song.sampleRate());
 
-  player = new Player(width/4, int(height * 0.8885), Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
+  player = new Player(width/4, height, height/5, height/5, height/2, 175);
 
   background = new Background(song.length());
   // try {
