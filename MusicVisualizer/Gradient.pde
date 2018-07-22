@@ -14,6 +14,7 @@ class Gradient {
 
   private int animationLength;
 
+  // TODO remove contructor
   public Gradient() {
     this.image = createGraphics(width, height, P2D);
   }
