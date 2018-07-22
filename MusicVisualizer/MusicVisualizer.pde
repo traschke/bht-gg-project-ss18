@@ -15,13 +15,13 @@ int threshold = 2;
 
 void setup()
 {
-  size(1280, 720, P2D);
-  // fullScreen(P2D);
+  // size(1280, 720, P2D);
+  fullScreen(P2D);
   smooth(8);
 
   minim = new Minim(this);
-  // song = minim.loadFile("levitation.mp3", 1024);
-  song = minim.loadFile("levitation30s.mp3", 1024);
+  song = minim.loadFile("levitation.mp3", 1024);
+  // song = minim.loadFile("levitation30s.mp3", 1024);
   // song.cue(15000);
 
   // a beat detection object song SOUND_ENERGY mode with a sensitivity of 10 milliseconds
