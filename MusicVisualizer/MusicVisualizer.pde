@@ -35,11 +35,11 @@ void setup()
   player = new Player(width/4, height*0.878, height*0.2, height/2, 175, 0.002);
 
   background = new Background(song.length());
-  try {
-    Thread.sleep(10000);
-  } catch(InterruptedException e) {
-      System.out.println("got interrupted!");
-  }
+  // try {
+  //   Thread.sleep(10000);
+  // } catch(InterruptedException e) {
+  //     System.out.println("got interrupted!");
+  // }
   song.play();
 }
 
