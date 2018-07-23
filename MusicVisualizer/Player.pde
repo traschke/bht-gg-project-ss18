@@ -10,20 +10,13 @@ class Player {
   private int jumpMillisBegin;
   private int jumpMillisEnd;
 
-  private float xPos;
-  private float yPos;
-  private float yGroundLevel;
-  private float w;
-  private float h;
+  private PVector pos;
+  private PVector scale;
 
   public Player(float xPos, float yPos, float w, float h, float jumpHeight, int jumpMillisDuration) {
-    // this.playerSprite = createShape(ELLIPSE, xPos, yPos, width, height);
-    this.playerSprite = loadShape("tyre2.svg");
-    this.xPos = xPos;
-    this.yPos = yPos-h;
-    this.yGroundLevel = this.yPos;
-    this.w = w;
-    this.h = h;
+    this.playerSprite = loadShape("tyre.svg");
+    this.pos = new PVector(xPos, yPos);
+    this.scale = new PVector(w/this.playerSprite.width, h/this.playerSprite.height);
 
     this.playerSprite.setFill(color(255, 255, 255));
     this.playerSprite.setStrokeWeight(0);
@@ -38,37 +31,28 @@ class Player {
       this.jumpMillisEnd = this.jumpMillisBegin + this.jumpMillisDuration;
   }
 
-  public void update() {
+  public void draw() {
+    float currentJumpHeight = 0;
+
     int millisSinceJumpBegin = millis() - this.jumpMillisBegin;
     float durationPercentage = (float)millisSinceJumpBegin / (float)this.jumpMillisDuration;
-    
     if (durationPercentage <= 1.0) {
       float sine = (float)Math.sin(PI * durationPercentage);
-      float currentJumpHeight = sine * this.jumpHeight;
-      
-      // * -1 because the zero point of the scene is in the upper left corner!
-      // this.playerSprite.resetMatrix();
-      // this.playerSprite.translate(0, Math.round(currentJumpHeight) * -1);
-      this.yPos = this.yGroundLevel - currentJumpHeight;
+      currentJumpHeight = sine * this.jumpHeight;
     } else {
       this.rest();
     }
-    // pushMatrix();
-    // this.playerSprite.resetMatrix();
-    // this.playerSprite.translate(-this.w/2, -this.h/2);
-    // this.playerSprite.rotate(PI/64);
-    // popMatrix();
-  }
 
-  public void draw() {
-    // shapeMode(CENTER);
-    shape(this.playerSprite, this.xPos, this.yPos, this.w, this.h);
+    pushMatrix();
+    scale(this.scale.x, this.scale.y);
+    translate(this.pos.x / this.scale.x, this.pos.y / this.scale.y - this.playerSprite.height);
+    translate(0, -currentJumpHeight / this.scale.y);
+    shape(this.playerSprite);
+    popMatrix();
   }
 
   private void rest() {
     this.playerSprite.setFill(color(255, 255, 255));
-    // this.playerSprite.resetMatrix();
-    this.yPos = this.yGroundLevel;
   }
 
   public PShape getPlayerSprite() {
