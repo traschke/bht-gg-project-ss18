@@ -1,32 +1,25 @@
 /***
 * Represents a character that can jump.
 */
-class Player {
-  private PShape playerSprite;
-
+class Player extends ScalableShape {
   private float jumpHeight;
 
   private int jumpMillisDuration;
   private int jumpMillisBegin;
   private int jumpMillisEnd;
 
-  private PVector pos;
-  private PVector scale;
-
   public Player(float xPos, float yPos, float w, float h, float jumpHeight, int jumpMillisDuration) {
-    this.playerSprite = loadShape("tyre.svg");
-    this.pos = new PVector(xPos, yPos);
-    this.scale = new PVector(w/this.playerSprite.width, h/this.playerSprite.height);
+    super(loadShape("tyre.svg"), xPos, yPos, w, h);
 
-    this.playerSprite.setFill(color(255, 255, 255));
-    this.playerSprite.setStrokeWeight(0);
+    this.shape.setFill(color(255, 255, 255));
+    this.shape.setStrokeWeight(0);
 
     this.jumpHeight = jumpHeight;
     this.jumpMillisDuration = jumpMillisDuration;
   }
 
   public void jump() {
-      this.playerSprite.setFill(color(255, 0, 0));
+      this.shape.setFill(color(255, 0, 0));
       this.jumpMillisBegin = millis();
       this.jumpMillisEnd = this.jumpMillisBegin + this.jumpMillisDuration;
   }
@@ -43,19 +36,17 @@ class Player {
       this.rest();
     }
 
+    PVector scaledPos = this.getScaledPos();
+    PVector scaledCurrentJumpHeight = this.scaleVector(new PVector(0, -currentJumpHeight));
     pushMatrix();
     scale(this.scale.x, this.scale.y);
-    translate(this.pos.x / this.scale.x, this.pos.y / this.scale.y - this.playerSprite.height);
-    translate(0, -currentJumpHeight / this.scale.y);
-    shape(this.playerSprite);
+    translate(scaledPos.x, scaledPos.y);
+    translate(scaledCurrentJumpHeight.x, scaledCurrentJumpHeight.y);
+    shape(this.shape);
     popMatrix();
   }
 
   private void rest() {
-    this.playerSprite.setFill(color(255, 255, 255));
-  }
-
-  public PShape getPlayerSprite() {
-    return this.playerSprite;
+    this.shape.setFill(color(255, 255, 255));
   }
 }
