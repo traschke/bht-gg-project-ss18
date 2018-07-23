@@ -8,18 +8,24 @@ class Player extends ScalableShape {
   private int jumpMillisBegin;
   private int jumpMillisEnd;
 
-  public Player(float xPos, float yPos, float w, float h, float jumpHeight, int jumpMillisDuration) {
-    super(loadShape("tyre.svg"), xPos, yPos, w, h);
+  private color c;
 
-    this.shape.setFill(color(255, 255, 255));
+  private float rotationSpeed;
+
+  public Player(float xPos, float yPos, float height, float jumpHeight, int jumpMillisDuration, float rotationSpeed) {
+    super(loadShape("tyre.svg"), xPos, yPos, height, ScalableShape.TYPE_HEIGHT);
+    this.c = color(54, 69, 79);
+    this.shape.setFill(this.c);
     this.shape.setStrokeWeight(0);
 
     this.jumpHeight = jumpHeight;
     this.jumpMillisDuration = jumpMillisDuration;
+
+    this.rotationSpeed = rotationSpeed;
   }
 
   public void jump() {
-      this.shape.setFill(color(255, 0, 0));
+      // this.shape.setFill(color(255, 0, 0));
       this.jumpMillisBegin = millis();
       this.jumpMillisEnd = this.jumpMillisBegin + this.jumpMillisDuration;
   }
@@ -36,17 +42,28 @@ class Player extends ScalableShape {
       this.rest();
     }
 
+    float angle = millis() * this.rotationSpeed;
+
     PVector scaledPos = this.getScaledPos();
     PVector scaledCurrentJumpHeight = this.scaleVector(new PVector(0, -currentJumpHeight));
     pushMatrix();
+    // translate(this.shape.width/2, this.shape.height/2);
+    // translate(-this.shape.width/2, -this.shape.height/2);
+    // translate(-width/2, -height/2);
     scale(this.scale.x, this.scale.y);
     translate(scaledPos.x, scaledPos.y);
     translate(scaledCurrentJumpHeight.x, scaledCurrentJumpHeight.y);
+
+    // Translate to center of shape, rotate, translate back
+    translate(this.shape.width/2, this.shape.height/2);
+    rotate(angle);
+    translate(-this.shape.width/2, -this.shape.height/2);
+
     shape(this.shape);
     popMatrix();
   }
 
   private void rest() {
-    this.shape.setFill(color(255, 255, 255));
+    this.shape.setFill(this.c);
   }
 }

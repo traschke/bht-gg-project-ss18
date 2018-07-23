@@ -15,13 +15,13 @@ int threshold = 2;
 
 void setup()
 {
-  size(1280, 720, P2D);
-  // fullScreen(P2D);
+  // size(1280, 720, P2D);
+  fullScreen(P2D);
   smooth(8);
 
   minim = new Minim(this);
-  // song = minim.loadFile("levitation.mp3", 1024);
-  song = minim.loadFile("levitation30s.mp3", 1024);
+  song = minim.loadFile("levitation.mp3", 1024);
+  // song = minim.loadFile("levitation30s.mp3", 1024);
   // song.cue(15000);
 
   // a beat detection object song SOUND_ENERGY mode with a sensitivity of 10 milliseconds
@@ -32,14 +32,14 @@ void setup()
 
   // fft = new FFT(song.bufferSize(), song.sampleRate());
 
-  player = new Player(width/4, height*0.878, height*0.1, height*0.1, height/2, 175);
+  player = new Player(width/4, height*0.878, height*0.2, height/2, 175, 0.002);
 
   background = new Background(song.length());
-  // try {
-  //   Thread.sleep(10000);
-  // } catch(InterruptedException e) {
-  //     System.out.println("got interrupted!");
-  // }
+  try {
+    Thread.sleep(10000);
+  } catch(InterruptedException e) {
+      System.out.println("got interrupted!");
+  }
   song.play();
 }
 
@@ -65,7 +65,7 @@ void draw()
   background.draw();
   player.draw();
 
-  showFps();
+  // showFps();
 
   // FFT debug
   // drawSpectrum();
