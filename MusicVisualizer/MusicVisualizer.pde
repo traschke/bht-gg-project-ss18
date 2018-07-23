@@ -32,7 +32,7 @@ void setup()
 
   // fft = new FFT(song.bufferSize(), song.sampleRate());
 
-  player = new Player(width/4, height*0.889, height*0.1, height*0.1, height/2, 175);
+  player = new Player(width/4, height*0.878, height*0.1, height*0.1, height/2, 175);
 
   background = new Background(song.length());
   // try {

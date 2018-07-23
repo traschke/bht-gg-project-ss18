@@ -1,5 +1,5 @@
 class Ground extends BackgroundObject {
   public Ground(int x, int y, int groundWidth) {
-    super(loadShape("ground.svg"), x, y, groundWidth, 576.39001, 84.931999);
+    super(loadShape("ground.svg"), x, y, groundWidth, ScalableShape.TYPE_WIDTH);
   }
 }

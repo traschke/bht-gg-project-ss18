@@ -57,8 +57,8 @@ class Background {
     this.mountainLayer1.addObjects(this.generateMountains(16, int(height*0.30), int(height*0.15), int(height*0.53), int(height*0.55), color(186, 186, 186), 150));
 
     this.groundLayer = new BackgroundLayer();
-    this.groundLayer.addObject(new Ground(0, int(height * 0.75), width));
-    this.groundLayer.addObject(new Ground(width, int(height * 0.75), width));
+    this.groundLayer.addObject(new Ground(0, height, width));
+    this.groundLayer.addObject(new Ground(width, height, width));
   }
 
   public void update(int durationProgress) {
