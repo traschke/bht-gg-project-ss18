@@ -15,8 +15,8 @@ int threshold = 2;
 
 void setup()
 {
-  // size(1280, 720, P2D);
-  fullScreen(P2D);
+  size(1280, 720, P2D);
+  // fullScreen(P2D);
   smooth(8);
 
   minim = new Minim(this);
@@ -32,7 +32,7 @@ void setup()
 
   // fft = new FFT(song.bufferSize(), song.sampleRate());
 
-  player = new Player(width/4, int(height * 0.8885), Math.round(height/12.5), Math.round(height/12.5), height/2, 175);
+  player = new Player(width/4, height*0.889, height*0.1, height*0.1, height/2, 175);
 
   background = new Background(song.length());
   // try {
@@ -53,7 +53,7 @@ void update() {
   }
 
   background.update(song.position());
-  player.update();
+  // player.update();
 }
 
 void draw()
