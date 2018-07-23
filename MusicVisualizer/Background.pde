@@ -5,6 +5,7 @@ class Background {
 
   private Gradient sky;
   private Sun sun;
+  private Sun sunSet;
 
   private BackgroundLayer mountainLayer1;
 
@@ -35,7 +36,8 @@ class Background {
     InterpolatingColor bottomC = new InterpolatingColor(dawnBottom, noonBottom, animationLength);
     this.sky = new Gradient(topC, bottomC, Gradient.Y_AXIS);
 
-    this.sun = new Sun(animationLength, int(height*0.2), int(height*0.12), new PVector(0, height/3), height/4, new InterpolatingColor(color(255, 90, 0), color(255, 255, 0), animationLength));
+    this.sun = new Sun(0, height*0.5, height*0.2, ScalableShape.TYPE_HEIGHT, height/4, animationLength, new InterpolatingColor(color(255, 90, 0, 0), color(255, 255, 0, 255), animationLength));
+    this.sunSet = new Sun(loadShape("sunSet.svg"), 0, height*0.42, height*0.12, ScalableShape.TYPE_HEIGHT, height/4, animationLength, new InterpolatingColor(color(255, 90, 0, 255), color(255, 255, 0, 0), animationLength));
 
     this.farGround = createShape(RECT, 0, height*0.50, width, height*0.50);
     this.farGround.setFill(color(169, 124, 80));
@@ -64,6 +66,7 @@ class Background {
   public void update(int durationProgress) {
     this.sky.update(durationProgress);
     this.sun.update(durationProgress);
+    this.sunSet.update(durationProgress);
     this.mountainLayer1.move(durationProgress, this.baseSpeed / 32);
     this.treesLayer1.move(   durationProgress, this.baseSpeed / 16);
     this.treesLayer2.move(   durationProgress, this.baseSpeed / 8);
@@ -74,6 +77,7 @@ class Background {
 
   public void draw() {
     this.sky.draw();
+    this.sunSet.draw();
     this.sun.draw();
     shape(this.farGround);
     this.mountainLayer1.draw();

@@ -20,8 +20,8 @@ void setup()
   smooth(8);
 
   minim = new Minim(this);
-  song = minim.loadFile("levitation.mp3", 1024);
-  // song = minim.loadFile("levitation30s.mp3", 1024);
+  // song = minim.loadFile("levitation.mp3", 1024);
+  song = minim.loadFile("levitation30s.mp3", 1024);
   // song.cue(15000);
 
   // a beat detection object song SOUND_ENERGY mode with a sensitivity of 10 milliseconds
