@@ -29,6 +29,7 @@ class ScalableShape {
   public PVector getPos() {
     return this.pos;
   }
+
   public PVector getScaledPos() {
     return new PVector(this.pos.x / this.scale.x, this.pos.y / this.scale.y - this.shape.height);
   }
